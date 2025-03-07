@@ -1,0 +1,119 @@
+
+.prereq-checker {
+  width: 600px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  overflow: hidden;
+}
+
+.prereq-title {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4px;
+  display: flex;
+  gap: 30%;
+}
+
+.prereq-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.prereq-item {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.prereq-item.installed {
+  
+}
+
+.prereq-item.not-installed {
+  
+}
+
+.prereq-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.prereq-details {
+  flex-grow: 1;
+}
+
+.prereq-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.prereq-status {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.prereq-version-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.prereq-min-version {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 2px;
+}
+
+.prereq-docs-link {
+  color: #2563eb;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.prereq-docs-link:hover {
+  text-decoration: underline;
+}
+
+.prereq-action {
+  margin-top: 2px;
+  text-align: center;
+ 
+}
+
+.prereq-start-button {
+  width: 100px;
+  margin-left: 80%;
+  background-color: white;
+  color:#e65100;
+  border: 1px #e65100;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.prereq-start-button:hover {
+  background-color: #e65100;
+  color: white;
+}
+
+.prereq-warning {
+  margin-top: 12px;
+  padding: 2px;
+  background-color: #f3b8b5;
+  border: 1px solid #fcd34d;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.prereq-warning p {
+  color: #92400e;
+  font-size: 14px;
+}

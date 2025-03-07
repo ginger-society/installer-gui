@@ -1,0 +1,91 @@
+:root {
+   
+   
+    --card-bg-light: rgba(255, 255, 255, 0.3);
+    --text-light: #e65100;
+    --button-bg-light: #e65100;
+    --button-text-light: white;
+    --shadow-light: rgba(0, 0, 0, 0.2);
+  
+    --card-bg-dark: rgba(255, 255, 255, 0.1);
+    --text-dark: #ff9800;
+    --button-bg-dark: #ff9800;
+    --button-text-dark: black;
+    --shadow-dark: rgba(255, 152, 0, 0.3);
+  }
+  
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-light: var(--background-dark);
+      --card-bg-light: var(--card-bg-dark);
+      --text-light: var(--text-dark);
+      --button-bg-light: var(--button-bg-dark);
+      --button-text-light: var(--button-text-dark);
+      --shadow-light: var(--shadow-dark);
+    }
+  }
+  
+ 
+  .success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: var(--background-light);
+    color: var(--text-light);
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  
+  .success-card {
+   
+    
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    max-width: 400px;
+    
+    width: 90%;
+    height:auto;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .success-card:hover {
+    transform: scale(1.03);
+  }
+  
+ 
+  .success-card h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+
+  .success-card p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+  }
+  
+ 
+  .success-btn {
+    padding:8px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--button-text-light);
+    background: var(--button-bg-light);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .success-btn:hover {
+    background: var(--text-light);
+    color: white;
+    box-shadow: 0 4px 10px var(--shadow-light);
+  }
+  

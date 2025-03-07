@@ -1,0 +1,43 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "installationwindow",
+  "version": "0.1.0",
+  "identifier": "com.example.tauri",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:3000",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Ginger-Society-installationwizard",
+        "width": 650,
+        "height": 450,
+        "resizable": false,
+        "fullscreen": false,
+        "decorations": true,
+        "maximizable": false,
+        "minimizable": false
+        
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  },
+  "plugins": {
+    "window": {},
+    "dialog": {}
+  }
+}

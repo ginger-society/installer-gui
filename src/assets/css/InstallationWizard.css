@@ -1,0 +1,86 @@
+
+ .wizard-container {
+    width: 68vw;
+    height: 100vh;
+    
+    padding: 5px;
+    
+
+   
+    --background-light: linear-gradient(50deg, rgba(188, 64, 2, 1) 0%, rgba(188, 64, 2, 1) 50%, rgb(200, 86, 4) 50%);
+    
+   
+    --background-dark: linear-gradient(48deg, rgba(55, 28, 5, 1) 0%, rgba(55, 28, 5, 1) 50%, rgb(60, 44, 30) 50%);
+    
+    
+    --text-light:white;
+    --text-dark:white;
+    background: var(--background-light);
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .wizard-container {
+        background: var(--background-dark);
+    }
+}
+
+
+.section {
+    margin-bottom: 20px;
+   
+}
+
+.section h2 {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.section p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.wizard-Instruction{
+  padding: 8%;
+  color: white;
+}
+ 
+  
+  .footer {
+    text-align: center;
+    margin-top: 10px;
+    
+  }
+
+  .primary-button {
+    background-color: white;
+    color:#e65100;
+    padding: 6px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    align-items: center;
+    gap: 3px;
+    display: flex;
+    flex-direction: row;
+    margin-right: 90%;
+  }
+  .Secondary-button {
+    background-color: rgb(210, 24, 24);
+    color:white;
+    padding: 9px 20px;
+    
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+  
+  .primary-button:hover {
+    background-color: #e65100;
+    color:white;
+  }
+  

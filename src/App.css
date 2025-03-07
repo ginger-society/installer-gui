@@ -1,0 +1,85 @@
+
+:root {
+  --background-light: #f8e1dc;
+  --sidebar-light: radial-gradient(circle at 50% 50%, rgb(252, 140, 54) 0%, rgb(188, 64, 2) 38%);
+  --text-light: black;
+  --background-dark: #121212;
+  --sidebar-dark: radial-gradient(circle at 50% 50%, rgb(92, 52, 21) 0%, rgb(55, 28, 5) 38%);
+  --text-dark: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-light: var(--background-dark);
+    --sidebar-light: var(--sidebar-dark);
+    --text-light: var(--text-dark);
+  }
+  .gradient-page .content {
+    --background-light: var(--background-dark);
+  }
+}
+
+
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+
+.sidebar {
+  margin-left: 0%;
+  width: 32vw;
+  height: 100vh;
+  background: var(--sidebar-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.content {
+  width: 60vw;
+  height: 100vh;
+  background: var(--background-light);
+  color: white;
+}
+
+.logo {
+  height: 6em;
+  padding: 3.5em;
+
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+
+.card {
+  padding: 2em;
+}
+
+
+.read-the-docs {
+  color: #888;
+}
+
+
+.setup-container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
