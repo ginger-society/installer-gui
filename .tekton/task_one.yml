@@ -13,4 +13,4 @@ spec:
       image: alpine
       script: |
         #!/bin/sh
-        echo "here we will build the project and upload the artifacts to a bucket"
+        echo "here we will build the project and upload the artifacts to a bucket - testing pipeline"
