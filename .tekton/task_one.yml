@@ -1,5 +1,5 @@
 apiVersion: tekton.dev/v1beta1
-kind: Task
+kind: ClusterTask
 metadata:
   name: build-binaries-and-upload-to-bucket
   namespace: tasks-ginger-installer
