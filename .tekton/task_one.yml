@@ -1,15 +1,15 @@
 apiVersion: tekton.dev/v1beta1
-kind: ClusterTask
+kind: Task
 metadata:
   name: build-binaries-and-upload-to-bucket
   namespace: tasks-ginger-installer
   annotations:
-    x-ginger-task-namespace: "ginger-installer"
+    x-ginger-task-namespace: "ginger-installer"  # Custom annotation
     x-ginger-task-trigger-branch: '["refs/heads/master", "refs/heads/dev"]'  # Allowed branches
 
 spec:
   workspaces:
-      - name: source # for source code
+      - name: source
       - name: ssh-credentials  # Store SSH keys
       - name: ssh-config  # Store SSH setup
       - name: kubeconfig
