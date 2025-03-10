@@ -8,6 +8,11 @@ metadata:
     x-ginger-task-trigger-branch: '["refs/heads/master", "refs/heads/dev"]'  # Allowed branches
 
 spec:
+  workspaces:
+      - name: source
+      - name: ssh-credentials  # Store SSH keys
+      - name: ssh-config  # Store SSH setup
+      - name: kubeconfig
   steps:
     - name: clone
       image: alpine
