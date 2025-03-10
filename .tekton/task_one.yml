@@ -9,7 +9,7 @@ metadata:
 
 spec:
   steps:
-    - name: Clone
+    - name: clone
       image: alpine
       script: |
         #!/bin/sh
