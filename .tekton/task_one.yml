@@ -9,7 +9,7 @@ metadata:
 
 spec:
   workspaces:
-      - name: source
+      - name: source # for source code
       - name: ssh-credentials  # Store SSH keys
       - name: ssh-config  # Store SSH setup
       - name: kubeconfig
