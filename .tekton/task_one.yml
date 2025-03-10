@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: gitolite-pv
+  name: task-pv
   namespace: tasks-ginger-installer
 spec:
   capacity:
@@ -17,7 +17,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: gitolite-pvc
+  name: task-pvc
   namespace: tasks-ginger-installer
 spec:
   accessModes:
@@ -25,7 +25,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  volumeName: gitolite-pv
+  volumeName: task-pv
 ---
 
 
