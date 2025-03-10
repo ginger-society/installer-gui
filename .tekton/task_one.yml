@@ -51,6 +51,8 @@ spec:
         #!/bin/sh
         set -e  # Exit on error
 
+        echo "Started"
+
         apk add --no-cache openssh-client git wget jq # Install SSH tools
         apk add util-linux
         # Install kubectl using wget
