@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: testing-pipe-2
+  name: Build installer standalone exe
   namespace: tasks-ginger-installer
   annotations:
     x-ginger-task-namespace: "ginger-installer"  # Custom annotation
@@ -9,8 +9,8 @@ metadata:
 
 spec:
   steps:
-    - name: echo
+    - name: Clone
       image: alpine
       script: |
         #!/bin/sh
-        echo "Hello, World! and here we will build the project and upload the artifacts to a bucket"
+        echo "here we will build the project and upload the artifacts to a bucket"
