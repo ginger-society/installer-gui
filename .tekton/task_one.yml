@@ -5,7 +5,7 @@ metadata:
   namespace: tasks-ginger-installer
   annotations:
     x-ginger-task-namespace: "ginger-installer"  # Custom annotation
-    x-ginger-task-trigger-branch: '["refs/heads/master", "refs/heads/dev"]'  # Allowed branches
+    x-ginger-task-trigger-branch: '["refs/heads/master"]'  # Allowed branches
 
 spec:
   workspaces:
