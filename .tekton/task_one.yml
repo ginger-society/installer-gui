@@ -4,7 +4,7 @@ metadata:
   name: build-binaries-and-upload-to-bucket
   namespace: tasks-ginger-installer
   annotations:
-    x-ginger-task-namespace: "ginger-installer"  # Custom annotation
+    x-ginger-task-namespace: "ginger-installer"
     x-ginger-task-trigger-branch: '["refs/heads/master", "refs/heads/dev"]'  # Allowed branches
 
 spec:
