@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: ""  # Ensure it is empty for static binding
+  storageClassName: "nfs"  # Ensure it is empty for static binding
   nfs:
     path: /srv/nfs/gitolite
     server: 192.168.49.1
@@ -26,7 +26,7 @@ spec:
     requests:
       storage: 10Gi
   volumeName: task-pv
-  storageClassName: ""  # Ensure it is empty to match the PV
+  storageClassName: "nfs"  # Ensure it is empty to match the PV
 
 ---
 
