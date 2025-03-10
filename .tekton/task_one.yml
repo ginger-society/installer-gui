@@ -47,6 +47,11 @@ spec:
 
         git clone git@source.gingersociety.org:ginger-installer /workspace/source/ginger-installer
         echo "Repository cloned successfully."
+        
+    - name: build
+      image: alpine
+      script: |
+        #!/bin/sh
+        set -e  # Exit on error
         cd /workspace/source/ginger-installer
         ls -la .
-        
