@@ -40,13 +40,9 @@
   
   
   .success-card {
-   
-    
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px var(--shadow-light);
     max-width: 400px;
-    
     width: 90%;
     height:auto;
     transition: transform 0.3s ease-in-out;
@@ -70,7 +66,6 @@
     opacity: 0.9;
   }
   
- 
   .success-btn {
     padding:8px;
     font-size: 13px;

@@ -168,17 +168,20 @@ fn download_and_install_with_progress(
 
     Ok(())
 }
+
 #[tauri::command]
 fn check_dependency_version(dependency_name: String) -> Result<String, String> {
     match dependency_name.to_lowercase().as_str() {
         "kubernetes" => check_kubernetes_version(),
         "docker" => check_docker_version(),
         "git" => check_git_version(),
+        "openapi-generator" => check_openapi_generator_version(),
+        "docker-desktop" => check_docker_desktop_version(),
+        "java" => check_java_version(),
        
         _ => Err(format!("Unsupported dependency: {}", dependency_name))
     }
 }
-
 
 fn check_kubernetes_version() -> Result<String, String> {
     let output = Command::new("kubectl")
@@ -188,7 +191,6 @@ fn check_kubernetes_version() -> Result<String, String> {
         .map_err(|e| format!("Error running kubectl version: {}", e))?;
     
     let version_output = String::from_utf8_lossy(&output.stdout).to_string();
-    
     
     let version = version_output
         .lines()
@@ -202,7 +204,6 @@ fn check_kubernetes_version() -> Result<String, String> {
 
     Ok(version)
 }
-
 
 fn check_docker_version() -> Result<String, String> {
     let output = Command::new("docker")
@@ -223,6 +224,7 @@ fn check_docker_version() -> Result<String, String> {
 
     Ok(version)
 }
+
 fn check_git_version() -> Result<String, String> {
     let output = Command::new("git")
         .arg("--version")
@@ -240,10 +242,161 @@ fn check_git_version() -> Result<String, String> {
     Ok(version)
 }
 
+fn check_openapi_generator_version() -> Result<String, String> {
+    
+    let command_attempts = [
+        // Direct CLI if installed globally
+        ("openapi-generator-cli", vec!["version"]),
+        ("openapi-generator", vec!["version"]),
+        
+        
+        ("npx", vec!["@openapitools/openapi-generator-cli", "version"]),
+        
+        // Via NPM with node
+        ("node", vec!["./node_modules/@openapitools/openapi-generator-cli/bin/openapi-generator", "version"]),
+        
+        // Via Java JAR if that's how it's installed
+        ("java", vec!["-jar", "openapi-generator-cli.jar", "version"]),
+        
+        // Via Maven plugin if that's how it's being used
+        ("mvn", vec!["org.openapitools:openapi-generator-maven-plugin:version"])
+    ];
+    
+    for (cmd, args) in command_attempts {
+        match Command::new(cmd).args(args).output() {
+            Ok(output) => {
+                let stdout = String::from_utf8_lossy(&output.stdout).to_string();
+                let stderr = String::from_utf8_lossy(&output.stderr).to_string();
+                
+                // Check both stdout and stderr as some tools output version to stderr
+                let version_output = if !stdout.is_empty() { stdout } else { stderr };
+                
+                if !version_output.is_empty() {
+                    // Try to extract version with regex
+                    if let Some(version_text) = version_output
+                        .lines()
+                        .find(|line| line.contains("version") || line.matches(char::is_numeric).count() > 0) {
+                        
+                        // Clean up the version text - look for patterns like x.y.z
+                        if let Some(version) = version_text
+                            .split_whitespace()
+                            .find(|s| s.contains('.') && s.chars().any(|c| c.is_digit(10))) {
+                            return Ok(version.trim().to_string());
+                        }
+                        
+                        // If no nice version found, return the whole line
+                        return Ok(version_text.trim().to_string());
+                    } else if let Some(first_line) = version_output.lines().next() {
+                        // Just return the first line if we can't find a better match
+                        return Ok(first_line.trim().to_string());
+                    }
+                }
+            },
+            Err(_) => continue, // Try next command if this one fails
+        }
+    }
+    
+    // If we're on Windows, try one more approach - checking for JAR in the current directory
+    if cfg!(target_os = "windows") {
+        let output = Command::new("cmd")
+            .args(["/c", "dir openapi-generator*.jar /b"])
+            .output();
+            
+        if let Ok(output) = output {
+            let jar_name = String::from_utf8_lossy(&output.stdout).trim().to_string();
+            if !jar_name.is_empty() {
+                // Found a JAR, try to get version from it
+                let version_output = Command::new("java")
+                    .args(["-jar", &jar_name, "version"])
+                    .output();
+                    
+                if let Ok(output) = version_output {
+                    let version = String::from_utf8_lossy(&output.stdout).trim().to_string();
+                    if !version.is_empty() {
+                        return Ok(version);
+                    }
+                }
+            }
+        }
+    }
+    
+    Err("OpenAPI Generator not found or version could not be determined".to_string())
+}
+
+fn check_docker_desktop_version() -> Result<String, String> {
+    // Try multiple methods to detect Docker version
+    
+    // Method 1: Check using docker CLI first (more reliable)
+    let docker_cli_result = Command::new("docker")
+        .args(["--version"])
+        .output();
+        
+    if let Ok(output) = docker_cli_result {
+        let version_str = String::from_utf8_lossy(&output.stdout).to_string();
+        if !version_str.is_empty() {
+            // Extract version number using regex or string operations
+            if let Some(version) = version_str.split("version").nth(1).map(|s| s.trim().split(' ').next().unwrap_or("").trim_matches(',')) {
+                if !version.is_empty() {
+                    return Ok(version.to_string());
+                }
+            }
+        }
+    }
+    
+    // Method 2: Try registry as fallback
+    let registry_paths = [
+        "Get-ItemProperty -Path 'HKCU:\\Software\\Docker Inc.\\Docker Desktop' -Name Version -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Version",
+        "Get-ItemProperty -Path 'HKLM:\\Software\\Docker Inc.\\Docker Desktop' -Name Version -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Version"
+    ];
+    
+    for path in registry_paths {
+        let output = Command::new("powershell")
+            .arg("-Command")
+            .arg(path)
+            .output()
+            .map_err(|e| format!("Error checking Docker Desktop version: {}", e))?;
+            
+        let version_output = String::from_utf8_lossy(&output.stdout).trim().to_string();
+        
+        if !version_output.is_empty() {
+            return Ok(version_output);
+        }
+    }
+    
+    Err("Docker Desktop not found or version could not be determined".to_string())
+}
+
+fn check_java_version() -> Result<String, String> {
+    let output = Command::new("java")
+        .arg("-version")
+        .output()
+        .map_err(|e| format!("Error running java -version: {}", e))?;
+    
+   
+    let version_output = String::from_utf8_lossy(&output.stderr).to_string();
+    
+    
+    let version = version_output
+        .lines()
+        .next()
+        .and_then(|line| {
+            let parts: Vec<&str> = line.split('"').collect();
+            if parts.len() >= 2 {
+                Some(parts[1].to_string())
+            } else {
+                None
+            }
+        })
+        .ok_or_else(|| "Could not parse Java version".to_string())?;
+
+    Ok(version)
+}
+
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
-            install_selected_tools,check_dependency_version
+            install_selected_tools,
+            check_dependency_version
         ])
         .run(tauri::generate_context!())
         .expect("Error while running Tauri application");

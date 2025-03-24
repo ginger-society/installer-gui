@@ -42,6 +42,5 @@ RUN pnpm install --no-frozen-lockfile
 # Copy the rest of the files (excluding those in .dockerignore)
 COPY . .
 
-
 # Set the default command to run when the container starts
 CMD ["pnpm", "dev"]
