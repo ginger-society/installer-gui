@@ -38,3 +38,12 @@ jobs:
       - name: Build Tauri App
         run: pnpm tauri build
 
+      - name: Upload to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ap-south-1
+        run: |
+          echo "Uploading to S3..."
+          aws s3 cp ./src-tauri/target/release/app.exe s3://ginger-installer-gui-binaries/windows/app.exe
+
