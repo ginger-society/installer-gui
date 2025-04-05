@@ -41,6 +41,10 @@ spec:
         #!/bin/sh
         set -e  # Exit on error
 
+        echo "Storage configuration:"
+        cat "$CONTAINERS_STORAGE_CONF"
+        ls /workspace/buildah-cache
+
         echo "Logging into container registry..."
         echo "mypassword" | buildah login --username "myuser" --password-stdin containers.gingersociety.org
 
