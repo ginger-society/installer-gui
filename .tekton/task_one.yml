@@ -27,13 +27,28 @@ spec:
         git clone git@source.gingersociety.org:ginger-installer.git /workspace/source/ginger-installer
         echo "Repository cloned successfully."
 
-    - name: build
+    - name: debug
       image: alpine
       script: |
         #!/bin/sh
         set -e  # Exit on error
         cd /workspace/source/ginger-installer
         ls -la .
-        cat Dockerfile
+
+    - name: build
+      image: containers.gingersociety.org/enhanced-buildah:latest
+      script: |
+        #!/bin/sh
+        set -e  # Exit on error
+
+        echo "Logging into container registry..."
+        echo "mypassword" | buildah login --username "myuser" --password-stdin containers.gingersociety.org
+
+        cd /workspace/source/ginger-installer
+        echo "Building db runtime image with Buildah"
+        buildah bud --isolation=chroot --storage-driver=vfs --root=$CONTAINERS_STORAGE .
+
+      securityContext:
+        privileged: true
 
 
