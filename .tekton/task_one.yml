@@ -62,5 +62,6 @@ spec:
         set -e  # Exit on error
         cd /workspace/source/ginger-installer
         ls -la .
+        cat Dockerfile
 
 
