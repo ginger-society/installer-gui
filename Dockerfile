@@ -43,4 +43,4 @@ RUN pnpm install --no-frozen-lockfile
 COPY . .
 
 # Set the default command to run when the container starts
-CMD ["pnpm", "dev"]
+CMD ["pnpm", "build"]
