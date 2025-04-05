@@ -30,11 +30,13 @@ RUN npm install -g pnpm@7.18.0
 # Set up working directory
 WORKDIR /app
 
-# Install dependencies
-RUN pnpm install --no-frozen-lockfile
 
 # Copy the rest of the files (excluding those in .dockerignore)
 COPY . .
+
+# Install dependencies
+RUN pnpm install --no-frozen-lockfile
+
 
 # Set the default command to run when the container starts
 RUN pnpm build
