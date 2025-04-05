@@ -1,5 +1,5 @@
 # Base image with a more recent version of Rust
-FROM rust:1.78-slim-bullseye
+FROM rust:1.78-slim-bookworm
 
 # Install system dependencies for Tauri
 RUN apt-get update && apt-get install -y \
