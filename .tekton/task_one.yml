@@ -41,8 +41,6 @@ spec:
         #!/bin/sh
         set -e  # Exit on error
 
-        source /usr/local/bin/configure_buildah_cache.sh
-
         echo "Storage configuration:"
         cat "$CONTAINERS_STORAGE_CONF"
         ls /workspace/buildah-cache
