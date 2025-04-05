@@ -42,6 +42,7 @@ WORKDIR /app
 COPY . .
 
 ENV PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+ENV WEBKIT2GTK_4_1_NO_PKG_CONFIG=1
 
 RUN pkg-config --modversion glib-2.0
 # # Install dependencies
