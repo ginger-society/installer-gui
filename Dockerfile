@@ -40,3 +40,4 @@ RUN pnpm install --no-frozen-lockfile
 
 # Set the default command to run when the container starts
 RUN pnpm build
+RUN pnpm tauri build
