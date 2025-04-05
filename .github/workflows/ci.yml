@@ -1,0 +1,49 @@
+name: Build Tauri App for Windows
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.18.0
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: x86_64-pc-windows-msvc
+          default: true
+
+      - name: Install Tauri CLI
+        run: pnpm dlx @tauri-apps/cli@latest install
+
+      - name: Build Tauri App
+        run: pnpm tauri build
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v3
+        with:
+          name: tauri-windows-build
+          path: |
+            src-tauri/target/release/bundle/**
+            src-tauri/target/x86_64-pc-windows-msvc/release/*.exe
