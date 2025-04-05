@@ -34,8 +34,6 @@ jobs:
           target: x86_64-pc-windows-msvc
           default: true
 
-      - name: Install Tauri CLI
-        run: pnpm dlx @tauri-apps/cli@latest install
 
       - name: Build Tauri App
         run: pnpm tauri build
