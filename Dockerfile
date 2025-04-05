@@ -3,7 +3,7 @@ FROM rust:1.78-slim-bookworm
 
 # Install system dependencies for Tauri
 RUN apt-get update && apt-get install -y \
-    libwebkit2gtk-4.0-dev \
+    libwebkit2gtk-4.1-dev \
     libsoup-3.0-dev \
     libjavascriptcoregtk-4.1-dev \
     build-essential \
@@ -42,7 +42,6 @@ WORKDIR /app
 COPY . .
 
 ENV PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
-ENV WEBKIT2GTK_4_1_NO_PKG_CONFIG=1
 
 RUN pkg-config --modversion glib-2.0
 # # Install dependencies
