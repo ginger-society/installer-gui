@@ -39,10 +39,13 @@ WORKDIR /app
 # Copy the rest of the files (excluding those in .dockerignore)
 COPY . .
 
-# Install dependencies
-RUN pnpm install --no-frozen-lockfile
+ENV PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+
+RUN pkg-config --modversion glib-2.0
+# # Install dependencies
+# RUN pnpm install --no-frozen-lockfile
 
 
-# Set the default command to run when the container starts
-RUN pnpm build
-RUN pnpm tauri build
+# # Set the default command to run when the container starts
+# RUN pnpm build
+# RUN pnpm tauri build
