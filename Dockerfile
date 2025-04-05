@@ -30,12 +30,6 @@ RUN npm install -g pnpm@7.18.0
 # Set up working directory
 WORKDIR /app
 
-# Copy just the package files first
-COPY package.json pnpm-lock.yaml ./
-
-# If you have a Cargo.toml file, copy it too
-COPY src-tauri/Cargo.toml src-tauri/
-
 # Install dependencies
 RUN pnpm install --no-frozen-lockfile
 
@@ -43,4 +37,4 @@ RUN pnpm install --no-frozen-lockfile
 COPY . .
 
 # Set the default command to run when the container starts
-CMD ["pnpm", "build"]
+RUN pnpm build
