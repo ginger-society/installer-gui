@@ -13,6 +13,11 @@ RUN apt-get update && apt-get install -y \
     libayatana-appindicator3-dev \
     librsvg2-dev \
     ca-certificates \
+    pkg-config \
+    libglib2.0-dev \
+    libpango1.0-dev \
+    libcairo2-dev \
+    libgdk-pixbuf2.0-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install a more recent version of Node.js
