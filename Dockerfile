@@ -4,6 +4,8 @@ FROM rust:1.78-slim-bookworm
 # Install system dependencies for Tauri
 RUN apt-get update && apt-get install -y \
     libwebkit2gtk-4.0-dev \
+    libsoup-3.0-dev \
+    libjavascriptcoregtk-4.1-dev \
     build-essential \
     curl \
     wget \
